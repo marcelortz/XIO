@@ -63,13 +63,28 @@ npm start -- <cycles> <agentsPerRole>
 npm run dev -- 20 4
 ```
 
-Ejemplo:
+Imprime, por ciclo: agentes vivos/muertos, balance total, nacimientos, muertes, y los eventos (nacimientos, muertes, decisiones de gobernanza). Al final reporta si el ledger quedó íntegro y el tamaño de la población final.
+
+Ejemplo (5 ciclos, 2 agentes por rol):
 
 ```bash
-npm run dev -- 15 3
+npm run dev -- 5 2
 ```
 
-Imprime, por ciclo: agentes vivos/muertos, balance total, nacimientos, muertes, y los eventos (nacimientos, muertes, decisiones de gobernanza). Al final reporta si el ledger quedó íntegro y el tamaño de la población final.
+```
+cycle 1: alive=5 dead=0 balance=666.44 births=1 kills=0
+  - legal-1-0 born from legal-0 x legal-1
+cycle 2: alive=7 dead=0 balance=1003.18 births=2 kills=0
+  - legal-2-0 born from legal-0 x legal-1
+  - sales-2-1 born from sales-2 x sales-3
+cycle 3: alive=10 dead=0 balance=1457.20 births=3 kills=0
+  ...
+cycle 5: alive=20 dead=0 balance=3096.04 births=6 kills=0
+  ...
+
+ledger integrity verified: true
+final population: 20 agents (20 alive)
+```
 
 ### Uso programático
 
