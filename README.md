@@ -1,5 +1,9 @@
 # XIO
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6.svg)](tsconfig.json)
+[![Tests](https://img.shields.io/badge/tests-33%20passing-brightgreen.svg)](tests)
+
 Simulación de agentes económicos con genética, metabolismo financiero y gobernanza multicapa, escrita en TypeScript strict mode.
 
 ## Arquitectura
