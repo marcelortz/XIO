@@ -2,7 +2,7 @@ import { Genome } from './xio-genome';
 import { Ledger } from './xio-ledger';
 import { Metabolism } from './xio-metabolism';
 
-export type AgentRole = 'legal' | 'sales' | 'marketing' | 'engineering' | 'support' | 'finance' | string;
+export type AgentRole = 'legal' | 'sales' | 'marketing' | 'engineering' | 'support' | 'finance' | 'product' | string;
 
 export interface ActionResult {
   actions: number;
@@ -135,6 +135,19 @@ export class FinanceAgent extends AgentBase {
     const actions = Math.round(1 + efficiency * 2);
     const valuePerDeal = 40 + efficiency * 30 - riskTolerance * 15;
     return { actions, revenue: actions * valuePerDeal };
+  }
+}
+
+export class ProductAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'product', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { creativity, efficiency, riskTolerance } = this.genome.traits;
+    const actions = Math.round(1 + efficiency * 2);
+    const valuePerFeature = 35 + creativity * 25 + riskTolerance * 10;
+    return { actions, revenue: actions * valuePerFeature };
   }
 }
 
