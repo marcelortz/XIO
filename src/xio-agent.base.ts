@@ -18,6 +18,7 @@ export type AgentRole =
   | 'security'
   | 'compliance'
   | 'logistics'
+  | 'customer-success'
   | string;
 
 export interface ActionResult {
@@ -268,6 +269,19 @@ export class LogisticsAgent extends AgentBase {
     const actions = Math.round(1 + speed * 3);
     const valuePerShipment = 15 + efficiency * 20;
     return { actions, revenue: actions * valuePerShipment };
+  }
+}
+
+export class CustomerSuccessAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'customer-success', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { resilience, speed } = this.genome.traits;
+    const actions = Math.round(2 + speed * 3);
+    const valuePerAccount = 20 + resilience * 15;
+    return { actions, revenue: actions * valuePerAccount };
   }
 }
 

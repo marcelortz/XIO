@@ -30,6 +30,7 @@ const ROLE_TRAIT_BIAS: Record<string, Partial<Traits>> = {
   security: { resilience: 0.25, riskTolerance: -0.15 },
   compliance: { resilience: 0.15, efficiency: 0.1, riskTolerance: -0.15 },
   logistics: { efficiency: 0.15, speed: 0.15 },
+  'customer-success': { resilience: 0.15, speed: 0.1 },
 };
 
 function clamp01(value: number): number {
