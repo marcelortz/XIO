@@ -4,6 +4,7 @@ import { Genome } from '../src/xio-genome';
 import { Ledger } from '../src/xio-ledger';
 import { Metabolism } from '../src/xio-metabolism';
 import {
+  ComplianceAgent,
   DataAgent,
   DesignAgent,
   EngineeringAgent,
@@ -128,6 +129,15 @@ test('SecurityAgent.act rewards resilience and penalizes risk tolerance', () => 
   const { ledger, metabolism, startingBalance } = setup();
   const genome = new Genome({ efficiency: 0, riskTolerance: 0, creativity: 0, resilience: 1, speed: 0 });
   const agent = new SecurityAgent('security-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 3);
+  assert.ok(result.revenue > 0);
+});
+
+test('ComplianceAgent.act rewards resilience and efficiency, penalizes risk tolerance', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 0, resilience: 1, speed: 0 });
+  const agent = new ComplianceAgent('compliance-1', genome, ledger, metabolism, startingBalance);
   const result = agent.act();
   assert.equal(result.actions, 3);
   assert.ok(result.revenue > 0);

@@ -13,8 +13,8 @@ src/xio-genome.ts        Traits, mutación, cruce (crossover), especialización 
 src/xio-ledger.ts        Ledger inmutable encadenado por SHA-256, presión financiera
 src/xio-metabolism.ts    Costes por ciclo, ingresos, predicción de muerte por burn rate
 src/xio-governance.ts    4 capas de control: self-check, peer review, arena oversight, kill switch
-src/xio-agent.base.ts    Clase base AgentBase + 13 roles: Legal, Sales, Marketing, Engineering, Support,
-                         Finance, Product, Research, HR, Operations, Design, Data, Security
+src/xio-agent.base.ts    Clase base AgentBase + 14 roles: Legal, Sales, Marketing, Engineering, Support,
+                         Finance, Product, Research, HR, Operations, Design, Data, Security, Compliance
 src/xio-arena.ts         Simulador de ciclos (6 fases) con reproducción y cap de población
 src/xio-simulation.ts    Orquestador: bootstrap, run, exportación de auditoría
 bin/run-simulation.ts    CLI de ejecución

@@ -3,6 +3,7 @@ import {
   AgentBase,
   AgentFactory,
   AgentRole,
+  ComplianceAgent,
   DataAgent,
   DesignAgent,
   EngineeringAgent,
@@ -53,6 +54,7 @@ const AGENT_CONSTRUCTORS: Record<string, new (...args: ConstructorParameters<typ
   design: DesignAgent,
   data: DataAgent,
   security: SecurityAgent,
+  compliance: ComplianceAgent,
 };
 
 export class Simulation {
