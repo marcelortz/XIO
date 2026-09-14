@@ -11,6 +11,7 @@ import {
   FinanceAgent,
   HRAgent,
   LegalAgent,
+  LogisticsAgent,
   MarketingAgent,
   OperationsAgent,
   ProductAgent,
@@ -140,6 +141,15 @@ test('ComplianceAgent.act rewards resilience and efficiency, penalizes risk tole
   const agent = new ComplianceAgent('compliance-1', genome, ledger, metabolism, startingBalance);
   const result = agent.act();
   assert.equal(result.actions, 3);
+  assert.ok(result.revenue > 0);
+});
+
+test('LogisticsAgent.act rewards speed and efficiency', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 0, resilience: 0, speed: 1 });
+  const agent = new LogisticsAgent('logistics-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 4);
   assert.ok(result.revenue > 0);
 });
 
