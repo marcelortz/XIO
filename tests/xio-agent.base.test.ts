@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { Genome } from '../src/xio-genome';
 import { Ledger } from '../src/xio-ledger';
 import { Metabolism } from '../src/xio-metabolism';
-import { LegalAgent, SalesAgent } from '../src/xio-agent.base';
+import { EngineeringAgent, LegalAgent, MarketingAgent, SalesAgent } from '../src/xio-agent.base';
 
 function setup(startingBalance = 100) {
   const ledger = new Ledger();
@@ -17,6 +17,24 @@ test('LegalAgent.act scales revenue with efficiency and risk tolerance', () => {
   const agent = new LegalAgent('legal-1', genome, ledger, metabolism, startingBalance);
   const result = agent.act();
   assert.equal(result.actions, 4);
+  assert.ok(result.revenue > 0);
+});
+
+test('MarketingAgent.act scales reach and conversion with creativity and risk tolerance', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 0, riskTolerance: 1, creativity: 1, resilience: 0, speed: 1 });
+  const agent = new MarketingAgent('marketing-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 5);
+  assert.ok(result.revenue > 0);
+});
+
+test('EngineeringAgent.act scales feature value with efficiency and resilience', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 0, resilience: 1, speed: 0 });
+  const agent = new EngineeringAgent('engineering-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 3);
   assert.ok(result.revenue > 0);
 });
 

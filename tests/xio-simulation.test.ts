@@ -26,7 +26,17 @@ test('exportAudit reports a verified, tamper-free ledger', () => {
   assert.ok(audit.ledger.length > 0);
 });
 
+test('bootstrap supports all four registered roles', () => {
+  const sim = new Simulation({ roles: ['legal', 'sales', 'marketing', 'engineering'], agentsPerRole: 2, cycles: 0 });
+  sim.bootstrap();
+  const audit = sim.exportAudit();
+  assert.equal(audit.finalPopulation.length, 8);
+  for (const role of ['legal', 'sales', 'marketing', 'engineering']) {
+    assert.equal(audit.finalPopulation.filter((a) => a.role === role).length, 2);
+  }
+});
+
 test('throws when bootstrapping a role with no registered agent implementation', () => {
-  const sim = new Simulation({ roles: ['marketing'], agentsPerRole: 1, cycles: 1 });
-  assert.throws(() => sim.bootstrap(), /no agent implementation registered for role "marketing"/);
+  const sim = new Simulation({ roles: ['operations'], agentsPerRole: 1, cycles: 1 });
+  assert.throws(() => sim.bootstrap(), /no agent implementation registered for role "operations"/);
 });

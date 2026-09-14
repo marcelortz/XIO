@@ -2,7 +2,7 @@ import { Genome } from './xio-genome';
 import { Ledger } from './xio-ledger';
 import { Metabolism } from './xio-metabolism';
 
-export type AgentRole = 'legal' | 'sales' | string;
+export type AgentRole = 'legal' | 'sales' | 'marketing' | 'engineering' | string;
 
 export interface ActionResult {
   actions: number;
@@ -82,6 +82,33 @@ export class SalesAgent extends AgentBase {
     const closeRate = 0.3 + creativity * 0.4 + riskTolerance * 0.2;
     const dealSize = 15 + creativity * 20;
     return { actions, revenue: actions * closeRate * dealSize };
+  }
+}
+
+export class MarketingAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'marketing', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { creativity, speed, riskTolerance } = this.genome.traits;
+    const actions = Math.round(2 + speed * 3);
+    const reachPerCampaign = 50 + creativity * 100;
+    const conversionRate = 0.05 + riskTolerance * 0.05;
+    return { actions, revenue: actions * reachPerCampaign * conversionRate };
+  }
+}
+
+export class EngineeringAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'engineering', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { efficiency, resilience, creativity } = this.genome.traits;
+    const actions = Math.round(1 + efficiency * 2);
+    const valuePerFeature = 30 + resilience * 20 + creativity * 10;
+    return { actions, revenue: actions * valuePerFeature };
   }
 }
 
