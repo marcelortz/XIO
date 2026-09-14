@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { Genome } from '../src/xio-genome';
 import { Ledger } from '../src/xio-ledger';
 import { Metabolism } from '../src/xio-metabolism';
-import { EngineeringAgent, FinanceAgent, LegalAgent, MarketingAgent, ProductAgent, ResearchAgent, SalesAgent, SupportAgent } from '../src/xio-agent.base';
+import { EngineeringAgent, FinanceAgent, HRAgent, LegalAgent, MarketingAgent, ProductAgent, ResearchAgent, SalesAgent, SupportAgent } from '../src/xio-agent.base';
 
 function setup(startingBalance = 100) {
   const ledger = new Ledger();
@@ -69,6 +69,15 @@ test('ResearchAgent.act rewards creativity, risk tolerance, and efficiency', () 
   const { ledger, metabolism, startingBalance } = setup();
   const genome = new Genome({ efficiency: 1, riskTolerance: 1, creativity: 1, resilience: 0, speed: 0 });
   const agent = new ResearchAgent('research-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 3);
+  assert.ok(result.revenue > 0);
+});
+
+test('HRAgent.act rewards speed, resilience, and efficiency', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 0, resilience: 1, speed: 1 });
+  const agent = new HRAgent('hr-1', genome, ledger, metabolism, startingBalance);
   const result = agent.act();
   assert.equal(result.actions, 3);
   assert.ok(result.revenue > 0);
