@@ -14,6 +14,7 @@ import {
   LogisticsAgent,
   MarketingAgent,
   OperationsAgent,
+  ProcurementAgent,
   ProductAgent,
   ResearchAgent,
   SalesAgent,
@@ -59,6 +60,7 @@ const AGENT_CONSTRUCTORS: Record<string, new (...args: ConstructorParameters<typ
   compliance: ComplianceAgent,
   logistics: LogisticsAgent,
   'customer-success': CustomerSuccessAgent,
+  procurement: ProcurementAgent,
 };
 
 export class Simulation {

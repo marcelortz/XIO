@@ -15,6 +15,7 @@ import {
   LogisticsAgent,
   MarketingAgent,
   OperationsAgent,
+  ProcurementAgent,
   ProductAgent,
   ResearchAgent,
   SalesAgent,
@@ -160,6 +161,15 @@ test('CustomerSuccessAgent.act rewards speed and resilience', () => {
   const agent = new CustomerSuccessAgent('customer-success-1', genome, ledger, metabolism, startingBalance);
   const result = agent.act();
   assert.equal(result.actions, 5);
+  assert.ok(result.revenue > 0);
+});
+
+test('ProcurementAgent.act rewards efficiency and penalizes risk tolerance', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 0, resilience: 0, speed: 0 });
+  const agent = new ProcurementAgent('procurement-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 3);
   assert.ok(result.revenue > 0);
 });
 

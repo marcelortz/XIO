@@ -26,7 +26,7 @@ test('exportAudit reports a verified, tamper-free ledger', () => {
   assert.ok(audit.ledger.length > 0);
 });
 
-test('bootstrap supports all sixteen registered roles', () => {
+test('bootstrap supports all seventeen registered roles', () => {
   const roles = [
     'legal',
     'sales',
@@ -44,11 +44,12 @@ test('bootstrap supports all sixteen registered roles', () => {
     'compliance',
     'logistics',
     'customer-success',
+    'procurement',
   ];
   const sim = new Simulation({ roles, agentsPerRole: 2, cycles: 0 });
   sim.bootstrap();
   const audit = sim.exportAudit();
-  assert.equal(audit.finalPopulation.length, 32);
+  assert.equal(audit.finalPopulation.length, 34);
   for (const role of roles) {
     assert.equal(audit.finalPopulation.filter((a) => a.role === role).length, 2);
   }
