@@ -1,5 +1,22 @@
 import { Arena, CycleReport } from './xio-arena';
-import { AgentBase, AgentFactory, AgentRole, EngineeringAgent, FinanceAgent, HRAgent, LegalAgent, MarketingAgent, ProductAgent, ResearchAgent, SalesAgent, SupportAgent } from './xio-agent.base';
+import {
+  AgentBase,
+  AgentFactory,
+  AgentRole,
+  DataAgent,
+  DesignAgent,
+  EngineeringAgent,
+  FinanceAgent,
+  HRAgent,
+  LegalAgent,
+  MarketingAgent,
+  OperationsAgent,
+  ProductAgent,
+  ResearchAgent,
+  SalesAgent,
+  SecurityAgent,
+  SupportAgent,
+} from './xio-agent.base';
 import { Genome } from './xio-genome';
 import { GovernanceEngine } from './xio-governance';
 import { Ledger, LedgerEntry } from './xio-ledger';
@@ -32,6 +49,10 @@ const AGENT_CONSTRUCTORS: Record<string, new (...args: ConstructorParameters<typ
   product: ProductAgent,
   research: ResearchAgent,
   hr: HRAgent,
+  operations: OperationsAgent,
+  design: DesignAgent,
+  data: DataAgent,
+  security: SecurityAgent,
 };
 
 export class Simulation {

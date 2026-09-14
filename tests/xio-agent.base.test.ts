@@ -3,7 +3,21 @@ import assert from 'node:assert/strict';
 import { Genome } from '../src/xio-genome';
 import { Ledger } from '../src/xio-ledger';
 import { Metabolism } from '../src/xio-metabolism';
-import { EngineeringAgent, FinanceAgent, HRAgent, LegalAgent, MarketingAgent, ProductAgent, ResearchAgent, SalesAgent, SupportAgent } from '../src/xio-agent.base';
+import {
+  DataAgent,
+  DesignAgent,
+  EngineeringAgent,
+  FinanceAgent,
+  HRAgent,
+  LegalAgent,
+  MarketingAgent,
+  OperationsAgent,
+  ProductAgent,
+  ResearchAgent,
+  SalesAgent,
+  SecurityAgent,
+  SupportAgent,
+} from '../src/xio-agent.base';
 
 function setup(startingBalance = 100) {
   const ledger = new Ledger();
@@ -78,6 +92,42 @@ test('HRAgent.act rewards speed, resilience, and efficiency', () => {
   const { ledger, metabolism, startingBalance } = setup();
   const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 0, resilience: 1, speed: 1 });
   const agent = new HRAgent('hr-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 3);
+  assert.ok(result.revenue > 0);
+});
+
+test('OperationsAgent.act rewards efficiency and resilience', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 0, resilience: 1, speed: 0 });
+  const agent = new OperationsAgent('operations-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 4);
+  assert.ok(result.revenue > 0);
+});
+
+test('DesignAgent.act rewards creativity and speed', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 0, riskTolerance: 0, creativity: 1, resilience: 0, speed: 1 });
+  const agent = new DesignAgent('design-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 3);
+  assert.ok(result.revenue > 0);
+});
+
+test('DataAgent.act rewards efficiency and creativity', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 1, riskTolerance: 0, creativity: 1, resilience: 0, speed: 0 });
+  const agent = new DataAgent('data-1', genome, ledger, metabolism, startingBalance);
+  const result = agent.act();
+  assert.equal(result.actions, 3);
+  assert.ok(result.revenue > 0);
+});
+
+test('SecurityAgent.act rewards resilience and penalizes risk tolerance', () => {
+  const { ledger, metabolism, startingBalance } = setup();
+  const genome = new Genome({ efficiency: 0, riskTolerance: 0, creativity: 0, resilience: 1, speed: 0 });
+  const agent = new SecurityAgent('security-1', genome, ledger, metabolism, startingBalance);
   const result = agent.act();
   assert.equal(result.actions, 3);
   assert.ok(result.revenue > 0);

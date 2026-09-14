@@ -2,7 +2,21 @@ import { Genome } from './xio-genome';
 import { Ledger } from './xio-ledger';
 import { Metabolism } from './xio-metabolism';
 
-export type AgentRole = 'legal' | 'sales' | 'marketing' | 'engineering' | 'support' | 'finance' | 'product' | 'research' | 'hr' | string;
+export type AgentRole =
+  | 'legal'
+  | 'sales'
+  | 'marketing'
+  | 'engineering'
+  | 'support'
+  | 'finance'
+  | 'product'
+  | 'research'
+  | 'hr'
+  | 'operations'
+  | 'design'
+  | 'data'
+  | 'security'
+  | string;
 
 export interface ActionResult {
   actions: number;
@@ -174,6 +188,58 @@ export class HRAgent extends AgentBase {
     const actions = Math.round(1 + speed * 2);
     const valuePerHire = 25 + resilience * 20 + efficiency * 10;
     return { actions, revenue: actions * valuePerHire };
+  }
+}
+
+export class OperationsAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'operations', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { efficiency, resilience } = this.genome.traits;
+    const actions = Math.round(1 + efficiency * 3);
+    const valuePerProcess = 15 + efficiency * 15 + resilience * 10;
+    return { actions, revenue: actions * valuePerProcess };
+  }
+}
+
+export class DesignAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'design', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { creativity, speed } = this.genome.traits;
+    const actions = Math.round(1 + speed * 2);
+    const valuePerDesign = 25 + creativity * 30;
+    return { actions, revenue: actions * valuePerDesign };
+  }
+}
+
+export class DataAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'data', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { efficiency, creativity } = this.genome.traits;
+    const actions = Math.round(1 + efficiency * 2);
+    const valuePerInsight = 20 + efficiency * 20 + creativity * 15;
+    return { actions, revenue: actions * valuePerInsight };
+  }
+}
+
+export class SecurityAgent extends AgentBase {
+  constructor(id: string, genome: Genome, ledger: Ledger, metabolism: Metabolism, startingBalance = 100) {
+    super(id, 'security', genome, ledger, metabolism, startingBalance);
+  }
+
+  act(): ActionResult {
+    const { resilience, riskTolerance } = this.genome.traits;
+    const actions = Math.round(1 + resilience * 2);
+    const valuePerAudit = 30 + resilience * 25 - riskTolerance * 10;
+    return { actions, revenue: actions * valuePerAudit };
   }
 }
 
