@@ -112,6 +112,15 @@ const reports = sim.run();
 const audit = sim.exportAudit(); // { verified, ledger, reports, finalPopulation }
 ```
 
+### Escala (100+ agentes)
+
+```bash
+npm run demo:scale -- 30 6 300
+# cycles=30, agentsPerRole=6 (x17 roles = 102 iniciales), maxPopulation=300
+```
+
+El `Ledger` verifica su integridad de forma incremental (solo re-hashea las entradas nuevas desde la última verificación, no toda la cadena) y las consultas por agente (`getBalance`, `financialPressure`, `getHistory(agentId)`) usan un índice por agente en vez de recorrer todo el ledger. Con esto, 300 agentes durante 30 ciclos (~25,700 entradas de ledger) corren en ~175ms en vez de colgarse por minutos.
+
 ## Tests
 
 ```bash
